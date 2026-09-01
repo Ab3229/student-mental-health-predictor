@@ -14,6 +14,10 @@ Social media use, sleep, study load, and stress all shape how students feel day 
 - Visual gauge showing where the predicted score falls, with a short interpretation
 - CORS enabled so the frontend can be served from anywhere and still reach the API
 
+## Live Link
+
+https://student-mental-health-predictor-1.onrender.com/
+
 ## Tech stack
 
 | Layer      | Tools |
