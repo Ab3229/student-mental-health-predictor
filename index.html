@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Wellbeing Estimator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="hero">
+      <p class="hero-kicker">Digital habits, checked against wellbeing</p>
+      <h1 class="hero-title">How's your screen time<br>treating your mind?</h1>
+      <p class="hero-sub">Answer a few questions about your day — sleep, study, scrolling — and get an estimated mental health score based on patterns from thousands of students.</p>
+    </header>
+
+    <main class="layout">
+
+      <form id="predict-form" class="card form-card" novalidate>
+
+        <div class="field-group">
+          <h2 class="group-title">About you</h2>
+
+          <div class="field">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="10" max="100" value="20" required>
+          </div>
+
+          <div class="field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="e.g. India" value="India" required>
+          </div>
+
+          <div class="field">
+            <label for="academic_level">Academic level</label>
+            <select id="academic_level" name="academic_level" required>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Graduate">Graduate</option>
+              <option value="High School">High School</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h2 class="group-title">Your scrolling</h2>
+
+          <div class="field">
+            <label for="most_used_platform">Most used platform</label>
+            <select id="most_used_platform" name="most_used_platform" required>
+              <option>Instagram</option>
+              <option>YouTube</option>
+              <option>TikTok</option>
+              <option>WhatsApp</option>
+              <option>Facebook</option>
+              <option>Snapchat</option>
+              <option>Twitter</option>
+              <option>LinkedIn</option>
+              <option>WeChat</option>
+              <option>LINE</option>
+              <option>KakaoTalk</option>
+              <option>VKontakte</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="purpose_of_use">Main purpose</label>
+            <select id="purpose_of_use" name="purpose_of_use" required>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Networking">Networking</option>
+              <option value="Education">Education</option>
+              <option value="News">News</option>
+            </select>
+          </div>
+
+          <div class="field slider-field">
+            <label for="avg_daily_usage_hours">Average daily usage <span class="unit-out" id="avg_daily_usage_hours-out">4.0 hrs</span></label>
+            <input type="range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="16" step="0.5" value="4">
+          </div>
+
+          <div class="field">
+            <label for="daily_unlocks">Phone unlocks per day</label>
+            <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" value="60" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h2 class="group-title">Your day</h2>
+
+          <div class="field slider-field">
+            <label for="study_hours">Study hours <span class="unit-out" id="study_hours-out">3.0 hrs</span></label>
+            <input type="range" id="study_hours" name="study_hours" min="0" max="16" step="0.5" value="3">
+          </div>
+
+          <div class="field slider-field">
+            <label for="physical_activity_hours">Physical activity <span class="unit-out" id="physical_activity_hours-out">1.0 hrs</span></label>
+            <input type="range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="10" step="0.5" value="1">
+          </div>
+
+          <div class="field slider-field">
+            <label for="sleep_hours_per_night">Sleep per night <span class="unit-out" id="sleep_hours_per_night-out">7.0 hrs</span></label>
+            <input type="range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="12" step="0.5" value="7">
+          </div>
+
+          <div class="field">
+            <label for="stress_level">Stress level</label>
+            <select id="stress_level" name="stress_level" required>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Very High">Very High</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Estimate my score</button>
+        <p class="form-note" id="form-error"></p>
+      </form>
+
+      <aside class="card result-card" id="result-card">
+        <p class="result-kicker">Estimated score</p>
+
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 200 120" class="gauge" id="gauge-svg">
+            <path class="gauge-track" d="M20,110 A80,80 0 0 1 180,110" />
+            <path class="gauge-fill" id="gauge-fill" d="M20,110 A80,80 0 0 1 180,110" />
+          </svg>
+          <div class="gauge-value" id="gauge-value">--</div>
+        </div>
+
+        <p class="result-label" id="result-label">Fill in the form and estimate to see where you land.</p>
+        <p class="result-detail" id="result-detail">The score runs from 0 (struggling) to 10 (thriving), learned from reported patterns of students like you.</p>
+      </aside>
+
+    </main>
+
+    <footer class="page-footer">
+      <p>Estimates only — not a diagnosis. If you're finding things hard right now, a real conversation with someone you trust is worth more than any score.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
