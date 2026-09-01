@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://student-mental-health-predictor-390e.onrender.com/";
 const API_URL = `${API_BASE_URL}/predict`;
 
 const form = document.getElementById("predict-form");
